@@ -1,0 +1,215 @@
+================================================================================
+GRAVITY SHIFT BATTLE - QUICK START GUIDE
+================================================================================
+
+For: Xiangfeng Ding
+Purpose: Rapid project setup and testing
+
+================================================================================
+STEP 1: OPEN PROJECT IN UNITY
+================================================================================
+
+1. Launch Unity Hub
+2. Click "Add" button
+3. Navigate to and select the "GravityShift" folder
+4. Click "Add Project"
+5. Open the project (Unity 2022.3.17f1 LTS will be used)
+6. Wait for Unity to import all assets (2-3 minutes)
+
+================================================================================
+STEP 2: RUN AUTOMATED SETUP TOOL
+================================================================================
+
+1. In Unity Editor menu bar, click: Tools > Gravity Shift > Complete Project Setup
+2. A window titled "Project Setup Tool" will appear
+3. Click the "Run Complete Setup" button
+4. Wait for completion (approximately 2 minutes)
+5. You will see "Setup Complete!" dialog
+
+What this does:
+- Creates 10 materials
+- Generates 9 prefabs with all components
+- Populates all 6 scenes with game objects
+- Creates all UI elements
+
+================================================================================
+STEP 3: TEST THE GAME
+================================================================================
+
+1. In Project window, navigate to: Assets/Scenes/
+2. Double-click "MainMenu.unity" to open it
+3. Click the Play button (▶) at the top of Unity Editor
+4. You should see the main menu with:
+   - Title: "GRAVITY SHIFT BATTLE"
+   - Play, Options, Quit buttons
+   - Language selector (top-right)
+
+5. Click "PLAY" to start Level 1
+6. Test controls:
+   - WASD: Move
+   - Mouse: Look around
+   - Space: Jump
+   - G + Arrow Keys: Change gravity direction
+   - ESC: Pause menu
+
+================================================================================
+STEP 4: BUILD THE GAME (OPTIONAL)
+================================================================================
+
+1. Click: File > Build Settings
+2. Ensure all scenes are listed and checked
+3. Select your target platform (Windows/Mac/Linux)
+4. Click "Build" or "Build And Run"
+5. Choose output folder
+6. Wait for build to complete
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Problem: "Script not found" errors
+Solution: Wait for Unity to finish compiling all scripts (check bottom-right)
+
+Problem: Setup tool menu item not visible
+Solution: Check Assets/Scripts/Editor/ folder exists, restart Unity
+
+Problem: Scenes appear empty after setup
+Solution: Re-run the setup tool, check Console for errors
+
+Problem: Build fails
+Solution: Ensure all scenes are added in Build Settings
+
+================================================================================
+CONTROLS REFERENCE
+================================================================================
+
+Player Movement:
+- W: Move forward
+- A: Move left
+- S: Move backward
+- D: Move right
+- Mouse: Rotate camera
+- Space: Jump
+
+Gravity Control:
+- G + Up Arrow: Gravity upward
+- G + Down Arrow: Gravity downward (default)
+- G + Left Arrow: Gravity left
+- G + Right Arrow: Gravity right
+- G + Q: Gravity forward
+- G + E: Gravity backward
+
+Game Controls:
+- ESC: Pause/Resume
+- H: Toggle controls help
+- R: Restart level (when dead)
+
+================================================================================
+TESTING CHECKLIST
+================================================================================
+
+Basic Functionality:
+□ Main menu loads correctly
+□ Play button starts Level 1
+□ Player can move with WASD
+□ Camera rotates with mouse
+□ Jump works with Space
+□ Gravity changes with G + Arrows
+□ Crystals can be collected
+□ Energy bar updates
+□ Checkpoint saves progress
+□ Exit portal loads next level
+□ Pause menu works with ESC
+□ Language selector switches languages
+
+Advanced Testing:
+□ All 5 levels are playable
+□ Enemy AI chases player
+□ Moving platforms work
+□ Pressure plates trigger barriers
+□ Hazard zones cause death
+□ Respawn at checkpoint works
+□ Score increases correctly
+□ Victory screen appears on level complete
+
+================================================================================
+RECORDING VIDEO DEMONSTRATION
+================================================================================
+
+Recommended Recording Software:
+- OBS Studio (Free, cross-platform)
+- Bandicam (Windows)
+- QuickTime (macOS)
+
+What to Record (5 minutes max):
+1. Main menu (show language selector) - 30 seconds
+2. Level 1 tutorial gameplay - 1 minute
+3. Gravity switching demonstration - 1 minute
+4. Level 2-3 highlights - 1.5 minutes
+5. Level 5 with enemies and all mechanics - 1 minute
+
+Recording Tips:
+- Use 1920x1080 resolution
+- 60 FPS if possible
+- Show all core mechanics
+- Demonstrate multilingual UI
+- Include victory/game over screens
+
+================================================================================
+GITHUB REPOSITORY
+================================================================================
+
+Repository URL: https://github.com/Xiangfeng-Ding/GravityShift
+
+What's included:
+- All C# scripts (21 files)
+- Unity project structure
+- Comprehensive documentation
+- 16 commits with clear messages
+- .gitignore for Unity projects
+
+To clone:
+git clone https://github.com/Xiangfeng-Ding/GravityShift.git
+
+================================================================================
+SUBMISSION CHECKLIST
+================================================================================
+
+Required Materials:
+□ Unity project (GitHub link)
+□ Video demonstration (5 minutes max)
+□ Game design report (GAME_DESIGN_REPORT.txt)
+□ Presentation slides (prepare separately)
+
+Optional Materials:
+□ Build executable (.exe/.app)
+□ Additional documentation
+□ Screenshots/GIFs
+□ Playtest feedback
+
+================================================================================
+CONTACT AND SUPPORT
+================================================================================
+
+If you encounter any issues:
+1. Check UNITY_SETUP_GUIDE.txt for detailed instructions
+2. Check EDITOR_TOOL_GUIDE.txt for tool usage
+3. Check TESTING_CHECKLIST.txt for comprehensive tests
+4. Review Console window for error messages
+5. Check GitHub Issues for known problems
+
+================================================================================
+FINAL NOTES
+================================================================================
+
+- The automated setup tool is the key to getting the project running
+- All documentation is in .txt format (no .md files)
+- The game is fully functional after running the setup tool
+- All hard requirements are met
+- Project is ready for evaluation
+
+Good luck with your presentation and demonstration!
+
+================================================================================
+END OF QUICK START GUIDE
+================================================================================
