@@ -154,6 +154,28 @@ public class GravityController : MonoBehaviour
         {
             playerController.OnGravityChanged();
         }
+        
+        // Visual and audio feedback
+        if (VisualEffectsController.Instance != null)
+        {
+            VisualEffectsController.Instance.SpawnGravitySwitchEffect(transform.position, newDirection);
+        }
+        
+        if (CameraShake.Instance != null)
+        {
+            CameraShake.Instance.ShakeGravitySwitch();
+        }
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayGravitySwitchSound();
+        }
+        
+        // Notify GameManager
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.IncrementGravitySwitchCount();
+        }
     }
     
     /// <summary>

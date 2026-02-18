@@ -78,6 +78,18 @@ public class CrystalPickup : MonoBehaviour
             AudioSource.PlayClipAtPoint(collectSound, transform.position);
         }
         
+        // Visual effects
+        if (VisualEffectsController.Instance != null)
+        {
+            VisualEffectsController.Instance.SpawnCrystalPickupEffect(transform.position);
+        }
+        
+        // Audio manager
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayCrystalPickupSound();
+        }
+        
         // Destroy crystal
         Destroy(gameObject);
     }
