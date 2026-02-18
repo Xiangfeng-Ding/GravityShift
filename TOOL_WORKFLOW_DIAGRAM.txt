@@ -1,0 +1,311 @@
+================================================================================
+AUTOMATED PROJECT SETUP TOOL - WORKFLOW DIAGRAM
+================================================================================
+
+                        ┌─────────────────────────────┐
+                        │   Unity Editor Opened       │
+                        │   Project Loaded            │
+                        └──────────────┬──────────────┘
+                                       │
+                                       ▼
+                        ┌─────────────────────────────┐
+                        │  User Opens Tool Window     │
+                        │  Tools > Gravity Shift >    │
+                        │  Complete Project Setup     │
+                        └──────────────┬──────────────┘
+                                       │
+                                       ▼
+                        ┌─────────────────────────────┐
+                        │  ProjectSetupTool.cs        │
+                        │  Main Controller Window     │
+                        │                             │
+                        │  [Run Complete Setup]       │
+                        │  [1. Create Materials]      │
+                        │  [2. Create Prefabs]        │
+                        │  [3. Setup Scenes]          │
+                        │  [4. Create UI Elements]    │
+                        └──────────────┬──────────────┘
+                                       │
+                    User clicks "Run Complete Setup"
+                                       │
+                                       ▼
+        ┌──────────────────────────────────────────────────────────┐
+        │                    STEP 1: MATERIALS                     │
+        │                  MaterialSetup.cs                        │
+        └──────────────────────────────────────────────────────────┘
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    │                  │                  │
+                    ▼                  ▼                  ▼
+        ┌───────────────────┐ ┌───────────────┐ ┌───────────────┐
+        │ Create Material   │ │ Set Color     │ │ Configure     │
+        │ Asset             │ │ Properties    │ │ Transparency  │
+        └───────────────────┘ └───────────────┘ └───────────────┘
+                    │                  │                  │
+                    └──────────────────┼──────────────────┘
+                                       │
+                            Output: 10 Materials
+                                       │
+                                       ▼
+        ┌──────────────────────────────────────────────────────────┐
+        │                    STEP 2: PREFABS                       │
+        │                   PrefabSetup.cs                         │
+        └──────────────────────────────────────────────────────────┘
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    │                  │                  │
+                    ▼                  ▼                  ▼
+        ┌───────────────────┐ ┌───────────────┐ ┌───────────────┐
+        │ Create GameObject │ │ Add Scripts   │ │ Apply         │
+        │ Hierarchy         │ │ & Components  │ │ Materials     │
+        └───────────────────┘ └───────────────┘ └───────────────┘
+                    │                  │                  │
+                    └──────────────────┼──────────────────┘
+                                       │
+                            Output: 9 Prefabs
+                                       │
+                                       ▼
+        ┌──────────────────────────────────────────────────────────┐
+        │                    STEP 3: SCENES                        │
+        │                   SceneSetup.cs                          │
+        └──────────────────────────────────────────────────────────┘
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    │                  │                  │
+                    ▼                  ▼                  ▼
+        ┌───────────────────┐ ┌───────────────┐ ┌───────────────┐
+        │ Open Scene        │ │ Create Level  │ │ Instantiate   │
+        │ File              │ │ Geometry      │ │ Prefabs       │
+        └───────────────────┘ └───────────────┘ └───────────────┘
+                    │                  │                  │
+                    └──────────────────┼──────────────────┘
+                                       │
+                         Output: 6 Configured Scenes
+                                       │
+                                       ▼
+        ┌──────────────────────────────────────────────────────────┐
+        │                    STEP 4: UI ELEMENTS                   │
+        │                    UISetup.cs                            │
+        └──────────────────────────────────────────────────────────┘
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    │                  │                  │
+                    ▼                  ▼                  ▼
+        ┌───────────────────┐ ┌───────────────┐ ┌───────────────┐
+        │ Create Canvas     │ │ Add UI        │ │ Configure     │
+        │ & Layout          │ │ Elements      │ │ Buttons       │
+        └───────────────────┘ └───────────────┘ └───────────────┘
+                    │                  │                  │
+                    └──────────────────┼──────────────────┘
+                                       │
+                    Output: Complete UI System
+                                       │
+                                       ▼
+                        ┌─────────────────────────────┐
+                        │  AssetDatabase.SaveAssets() │
+                        │  AssetDatabase.Refresh()    │
+                        └──────────────┬──────────────┘
+                                       │
+                                       ▼
+                        ┌─────────────────────────────┐
+                        │  Display Success Dialog     │
+                        │  "Setup Complete!"          │
+                        │  "Project is ready to run"  │
+                        └──────────────┬──────────────┘
+                                       │
+                                       ▼
+                        ┌─────────────────────────────┐
+                        │  User Tests Game            │
+                        │  Click Play Button          │
+                        │  All Systems Operational    │
+                        └─────────────────────────────┘
+
+
+================================================================================
+DETAILED MODULE FLOW
+================================================================================
+
+MaterialSetup.cs Flow:
+----------------------
+CreateAllMaterials()
+  │
+  ├─> CreateMaterial("PlayerMaterial", Blue)
+  ├─> CreateMaterial("CrystalMaterial", Cyan)
+  ├─> CreateMaterial("GroundMaterial", Gray)
+  ├─> CreateMaterial("WallMaterial", DarkGray)
+  ├─> CreateMaterial("CheckpointMaterial", Green)
+  ├─> CreateMaterial("EnemyMaterial", Red)
+  ├─> CreateMaterial("BarrierMaterial", Yellow, Transparent=true)
+  ├─> CreateMaterial("PlatformMaterial", Brown)
+  ├─> CreateMaterial("HazardMaterial", DarkRed)
+  └─> CreateMaterial("ExitPortalMaterial", Purple)
+
+
+PrefabSetup.cs Flow:
+--------------------
+CreateAllPrefabs()
+  │
+  ├─> CreatePlayerPrefab()
+  │     ├─> Create Capsule body
+  │     ├─> Add Camera child
+  │     ├─> Add CharacterController
+  │     ├─> Attach PlayerController script
+  │     ├─> Attach GravityController script
+  │     ├─> Attach PlayerEnergy script
+  │     └─> Save as Player.prefab
+  │
+  ├─> CreateCrystalPrefab()
+  │     ├─> Create rotating cube
+  │     ├─> Add trigger collider
+  │     ├─> Attach CrystalPickup script
+  │     └─> Save as Crystal.prefab
+  │
+  ├─> CreateCheckpointPrefab()
+  ├─> CreateEnemyPrefab()
+  ├─> CreateBarrierPrefab()
+  ├─> CreatePlatformPrefab()
+  ├─> CreatePressurePlatePrefab()
+  ├─> CreateHazardZonePrefab()
+  └─> CreateExitPortalPrefab()
+
+
+SceneSetup.cs Flow:
+-------------------
+SetupAllScenes()
+  │
+  ├─> SetupMainMenuScene()
+  │     ├─> Create GameManager
+  │     ├─> Create AudioManager
+  │     └─> Create MainMenuCanvas
+  │
+  ├─> SetupLevel1Scene()
+  │     ├─> Create ground and walls
+  │     ├─> Instantiate Player at start position
+  │     ├─> Place 3 crystals
+  │     ├─> Add checkpoint
+  │     ├─> Create tutorial platforms
+  │     ├─> Place exit portal
+  │     └─> Create HUD Canvas
+  │
+  ├─> SetupLevel2Scene() [Moving Platforms]
+  ├─> SetupLevel3Scene() [Hazards]
+  ├─> SetupLevel4Scene() [Mechanisms]
+  └─> SetupLevel5Scene() [Final Challenge]
+
+
+UISetup.cs Flow:
+----------------
+CreateAllUI()
+  │
+  ├─> CreateMainMenuUI()
+  │     ├─> Create title text
+  │     ├─> Create subtitle
+  │     ├─> Create Play button
+  │     ├─> Create Options button
+  │     ├─> Create Quit button
+  │     └─> Create language selector (EN/CN/JP/KR)
+  │
+  ├─> CreateGameHUD()
+  │     ├─> Create energy bar (background + fill + text)
+  │     ├─> Create crystal counter
+  │     ├─> Create score display
+  │     └─> Create gravity indicator
+  │
+  └─> CreatePauseMenuUI()
+        ├─> Create overlay background
+        ├─> Create menu panel
+        ├─> Create Resume button
+        ├─> Create Restart button
+        ├─> Create Main Menu button
+        ├─> Create Quit button
+        └─> Save as PauseMenu.prefab
+
+
+================================================================================
+DATA FLOW DIAGRAM
+================================================================================
+
+    [User Input]
+         │
+         ▼
+  [ProjectSetupTool]
+         │
+         ├──────────────────────────────────────────────┐
+         │                                              │
+         ▼                                              ▼
+  [MaterialSetup]                              [Asset Database]
+         │                                              │
+         ├─> Materials/*.mat ─────────────────────────>│
+         │                                              │
+         ▼                                              ▼
+  [PrefabSetup]                                [Project Window]
+         │                                              │
+         ├─> Prefabs/*.prefab ────────────────────────>│
+         │                                              │
+         ▼                                              ▼
+  [SceneSetup]                                 [Scene View]
+         │                                              │
+         ├─> Scenes/*.unity ──────────────────────────>│
+         │                                              │
+         ▼                                              ▼
+  [UISetup]                                    [Game View]
+         │                                              │
+         └─> UI Elements ─────────────────────────────>│
+                                                        │
+                                                        ▼
+                                              [Playable Game]
+
+
+================================================================================
+ERROR HANDLING FLOW
+================================================================================
+
+                        [Tool Execution]
+                                │
+                                ▼
+                        [Try-Catch Block]
+                                │
+                    ┌───────────┴───────────┐
+                    │                       │
+                    ▼                       ▼
+              [Success Path]          [Error Path]
+                    │                       │
+                    │                       ├─> Log error to Console
+                    │                       ├─> Display error dialog
+                    │                       └─> Show error in tool window
+                    │
+                    ├─> Log success messages
+                    ├─> Update progress display
+                    └─> Show completion dialog
+
+
+================================================================================
+ASSET DEPENDENCY GRAPH
+================================================================================
+
+                    [C# Scripts]
+                         │
+                         ├─────────────────┐
+                         │                 │
+                         ▼                 ▼
+                  [Materials]         [Prefabs]
+                         │                 │
+                         └────────┬────────┘
+                                  │
+                                  ▼
+                              [Scenes]
+                                  │
+                                  ├─────────┐
+                                  │         │
+                                  ▼         ▼
+                            [UI Elements] [Game Objects]
+                                  │         │
+                                  └────┬────┘
+                                       │
+                                       ▼
+                              [Playable Game]
+
+
+================================================================================
+END OF WORKFLOW DIAGRAM
+================================================================================
