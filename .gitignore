@@ -1,0 +1,64 @@
+# =========================
+# Unity (.gitignore) for GravityShift
+# =========================
+# This ignore list is tuned to the contents found in GravityShift.zip:
+# - Excludes generated Unity folders (Library/Temp/Logs/UserSettings/Obj/)
+# - Excludes IDE/project files (*.csproj, *.sln, *.slnx) and .vsconfig
+# - Keeps Assets/, Packages/, ProjectSettings/, and all *.meta files
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- IDE / Editor junk ---
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userprefs
+*.csproj
+*.sln
+*.slnx
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Present in the zip root (do not commit)
+.vsconfig
+
+# --- Unity generated folders (DO NOT COMMIT) ---
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+
+# --- Build outputs (DO NOT COMMIT) ---
+[Bb]uild/
+[Bb]uilds/
+[Ll]ocal[Bb]uild/
+
+# --- Unity cache / artifacts ---
+sysinfo.txt
+
+# --- Crash reports / logs ---
+crashlytics-build.properties
+
+# --- Test results ---
+TestResults/
+tests-results.xml
+
+# =========================
+# DO COMMIT:
+# - Assets/
+# - Packages/
+# - ProjectSettings/
+# - Docs/ (optional, recommended)
+# - All *.meta files
+# =========================
