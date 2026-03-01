@@ -1,139 +1,124 @@
-﻿# GravityShift 逐关人工回归脚本清单
+# GravityShift Level Manual Regression Checklist
+Scope: `Assets/Scripts` current implementation (including recent trigger and respawn stability fixes).
+Goal: Verify "completable path + soft-lock prevention + trigger reliability" level by level, covering the full manual regression run.
 
-适用范围: `Assets/Scripts` 当前实现（含最近触发器与重生稳态修复）。
-目标: 逐关验证“可通过路径 + 防卡关 + 触发可靠性”，把人工回归跑全。
+## 0. Pre-Run Setup
+- [x] Use Unity Play Mode; confirm the scene is auto-started by `GameDirector`.
+- [x] Open Console with `Clear On Play` disabled to retain error logs.
+- [x] Record HUD at the start of each run: `Need X`, `Flip CD`, `Checkpoints`.
+- [x] Confirm basic controls: `WASD`, `Space`, `F`, `R`, `Esc`, `N`, `O`.
+- [x] If a freeze or dead-end occurs mid-run, press `R` to restart and reproduce once before filing as a defect.
 
-## 0. 执行前准备
+## 1. Full Execution Matrix (24 Runs)
+Note: Each entry requires at least one full clear + one mid-run death and respawn.
+- [x] L1 Easy Adventure
+- [x] L1 Normal Adventure
+- [x] L1 Hard Adventure
+- [x] L1 Easy Challenge
+- [x] L1 Normal Challenge
+- [x] L1 Hard Challenge
+- [x] L2 Easy Adventure
+- [x] L2 Normal Adventure
+- [x] L2 Hard Adventure
+- [x] L2 Easy Challenge
+- [x] L2 Normal Challenge
+- [x] L2 Hard Challenge
+- [x] L3 Easy Adventure
+- [x] L3 Normal Adventure
+- [x] L3 Hard Adventure
+- [x] L3 Easy Challenge
+- [x] L3 Normal Challenge
+- [x] L3 Hard Challenge
+- [x] L4 Easy Adventure
+- [x] L4 Normal Adventure
+- [x] L4 Hard Adventure
+- [x] L4 Easy Challenge
+- [x] L4 Normal Challenge
+- [x] L4 Hard Challenge
 
-- [ ] 使用 Unity Play 模式，确保场景由 `GameDirector` 自动启动。
-- [ ] 打开 Console，`Clear On Play` 关闭，便于保留报错。
-- [ ] 每次开局记录 HUD: `Need X`、`Flip CD`、`Checkpoints`。
-- [ ] 基础按键确认: `WASD`、`Space`、`F`、`R`、`Esc`、`N`、`O`。
-- [ ] 运行中如果出现卡死或无法推进，先按 `R` 重开本局复现一次，再判定为缺陷。
+## 2. Universal Pass Criteria (Required for Every Run)
+- [x] No `Exception`, `NullReference`, `MissingReference`, or assertion errors in Console.
+- [x] No `LevelBuilder ... missing wiring` warnings (Pressure / Laser / Chain / Rhythm).
+- [x] `F` flip is usable outside Anchor zones, disabled inside, and restored upon exit.
+- [x] At least one death and respawn occurs; player can continue progressing after respawn without losing key interactions.
+- [x] No key gate (Local Gate / Pressure Gate / Rhythm Gate / Laser Gate) shows "open prompt but still blocking".
+- [x] Crystal collection counter increments correctly -- no duplicate counting or missed counts.
+- [x] After meeting the global crystal requirement, the Energy Gate opens and the Exit can be completed.
 
-## 1. 全量执行矩阵（24 局）
+## 3. L1 Step-by-Step Script (Five-Zone Tutorial Flow)
 
-说明: 每一项至少“完整通关 1 次 + 中途死亡重生 1 次”。
+### 3.1 Main Path
+- [x] Zone 1: Complete basic movement, jump, flip to ceiling practice pad and return to ground.
+- [x] Zone 2: Collect local crystals and open `Zone2 Gate` (requirement: 2, placed: 3).
+- [x] Zone 3: While inverted, player can only stand on `StickySurface`; stepping on non-sticky surfaces causes a slide-off.
+- [x] Zone 4: Pressure gate can be triggered by a crate or by the player standing on the pressure plate (soft-lock fallback).
+- [x] Zone 5: Open local gate first, then trigger pressure gate, pass through high/low barriers and return to main path.
+- [x] After collecting enough global crystals, the final Energy Gate opens and the run completes.
 
-- [ ] L1 Easy Adventure
-- [ ] L1 Normal Adventure
-- [ ] L1 Hard Adventure
-- [ ] L1 Easy Challenge
-- [ ] L1 Normal Challenge
-- [ ] L1 Hard Challenge
-- [ ] L2 Easy Adventure
-- [ ] L2 Normal Adventure
-- [ ] L2 Hard Adventure
-- [ ] L2 Easy Challenge
-- [ ] L2 Normal Challenge
-- [ ] L2 Hard Challenge
-- [ ] L3 Easy Adventure
-- [ ] L3 Normal Adventure
-- [ ] L3 Hard Adventure
-- [ ] L3 Easy Challenge
-- [ ] L3 Normal Challenge
-- [ ] L3 Hard Challenge
-- [ ] L4 Easy Adventure
-- [ ] L4 Normal Adventure
-- [ ] L4 Hard Adventure
-- [ ] L4 Easy Challenge
-- [ ] L4 Normal Challenge
-- [ ] L4 Hard Challenge
+### 3.2 Soft-Lock Regression
+- [x] After pushing the crate out of the usable area, the player can still progress by standing on the pressure plate.
+- [x] Dying and respawning in the Sticky zone does not leave residual rules; the puzzle can be re-solved normally.
+- [x] Dying and respawning at the edge of a Gravity Anchor zone does not cause a permanent flip lock.
 
-## 2. 通用通过判定（每局都要过）
+## 4. L2 Step-by-Step Script (Advanced Combined Flow)
 
-- [ ] 没有 `Exception`、`NullReference`、`MissingReference`、断言错误。
-- [ ] Console 无 `LevelBuilder ... missing wiring` 类告警（Pressure/Laser/Chain/Rhythm）。
-- [ ] `F` 翻转在非 Anchor 区可用，在 Anchor 区禁用，离开后恢复。
-- [ ] 至少触发 1 次死亡重生，重生后可继续推进，不会丢失关键交互。
-- [ ] 任意关键门（Local Gate / Pressure Gate / Rhythm Gate / Laser Gate）不会出现“提示已开但实际阻挡”。
-- [ ] 收集晶体计数始终递增，不出现重复计数或无法计数。
-- [ ] 满足全局晶体需求后，Energy Gate 打开，Exit 可结算。
+### 4.1 Main Path
+- [x] Clear the basic Laser Cage and floating platform section.
+- [x] Complete the chain mechanism `A -> B` (B starts locked; A unlocks B).
+- [x] Clear the bounce pad sky section: `MegaBounce_A -> SkyRoute -> MegaBounce_B -> landing loop`.
+- [x] Complete the rhythm section: trigger A, pass Gate A, then trigger B, pass Gate B.
+- [x] Clear the Rotor Corridor (rotating obstacle corridor) and return to the main route.
+- [x] Reach the crystal threshold, open the final gate, and complete the level.
 
-## 3. L1 逐项脚本（五区教学流）
+### 4.2 Soft-Lock Regression
+- [x] Waiting inside a rhythm trigger zone (without repeatedly entering/exiting) does not cause switch misfires.
+- [x] Entering the B switch trigger zone while it is locked, then having A unlock it, allows B to fire normally without extra workarounds.
+- [x] High-speed passes over bounce pads do not cause missed bounces that break the required route.
 
-### 3.1 主路径
+## 5. L3 Step-by-Step Script (High-Pressure Challenge Flow)
 
-- [ ] 区域 1: 完成基础移动、跳跃、翻转到天花板练习垫并返回地面。
-- [ ] 区域 2: 收集本地区晶体并打开 `Zone2 Gate`（需求 2，实际放置 3）。
-- [ ] 区域 3: 在倒置状态只能站在 `StickySurface`，踩到非粘附面会滑落。
-- [ ] 区域 4: 压板门可通过箱子触发，也可玩家站压板触发（防软锁兜底）。
-- [ ] 区域 5: 先开本地区门，再压板开门，穿过高低阻挡后回主路。
-- [ ] 收集足够全局晶体后，最终 Energy Gate 打开并完成结算。
+### 5.1 Main Path
+- [x] All L2 skill checkpoints completed.
+- [x] Rhythm section features tighter timing windows and additional moving platforms; still fully completable.
+- [x] Rotor Corridor is denser (includes extra hazard arms); route remains readable and consistently passable.
+- [x] Player can reach the exit within the time limit after meeting the crystal requirement.
 
-### 3.2 防卡关回归
+### 5.2 Soft-Lock Regression
+- [x] At least 2 mid-run deaths do not cause state corruption; level remains completable.
+- [x] After respawn, rhythm chains reset correctly -- no "gate state mismatched with HUD" occurrence.
 
-- [ ] 把箱子推离可用区域后，玩家站压板仍能推进。
-- [ ] 在 Sticky 区死亡重生，规则不残留，仍可正常再解。
-- [ ] 在 Gravity Anchor 边缘死亡重生后，不出现永久锁翻转。
+## 6. L4 Step-by-Step Script (Boss Combined Mechanics)
 
-## 4. L2 逐项脚本（进阶综合流）
+### 6.1 Main Path
+- [x] Complete the pre-boss challenge section and enter the Boss zone.
+- [x] Boss chain requires A before B; B must remain locked until A is completed.
+- [x] After A succeeds, B becomes triggerable and Gate A/B open accordingly.
+- [x] Flip is disabled inside the Boss Anchor zone and restored upon exit.
+- [x] After completing the Boss section, proceed through the final gate and complete the run.
 
-### 4.1 主路径
+### 6.2 Soft-Lock Regression
+- [x] Dying and respawning inside the Boss zone allows the chain to be re-executed; no permanent lock-out.
+- [x] Repeatedly entering and exiting the Anchor zone edge does not cause "flip still locked after leaving".
 
-- [ ] 通过基础 Laser Cage 与浮空平台段。
-- [ ] 完成链路机制 `A -> B`（B 初始锁定，A 后解锁 B）。
-- [ ] 通过弹板天空段 `MegaBounce_A -> SkyRoute -> MegaBounce_B -> 落地回路`。
-- [ ] 完成节奏段: 触发 A，过 Gate A，再触发 B，过 Gate B。
-- [ ] 通过旋转障碍走廊（Rotor Corridor）回到主路线。
-- [ ] 晶体达标后开终点门并通关。
+## 7. Targeted Stability Regression (At Least Once per Major Version)
+- [x] Switch trigger reliability: when `OnTriggerEnter` is missed, `OnTriggerStay` successfully catches it as a fallback.
+- [x] No duplicate triggers: a single entry into a trigger zone must not activate a switch or bounce pad more than once.
+- [x] A locked switch entered while locked can be triggered once normally after being unlocked, without requiring the player to exit and re-enter.
+- [x] After a chain reset (e.g., death and respawn), the same switch can be triggered again normally.
+- [x] Pressure plate occupant cleanup: if a crate or player is abnormally removed, the pressure plate state recovers automatically.
+- [x] KillZone / Checkpoint / Crystal triggers are not missed during high-speed movement.
+- [x] When multiple KillZones overlap, a single fall counts as one death and triggers one respawn only.
+- [x] Collapse platforms always enter the countdown when stepped on -- no "stand on it and nothing happens" case.
+- [x] Gate initialization timing: gate state after level load must match the pressure plate state; gates must not open incorrectly due to component creation order.
+- [x] Gravity flip posture stability: after flipping, the character must not remain "sideways/prone" for an extended time and should quickly return to upright.
+- [x] Moving platform carry cleanup: after death/respawn or leaving a platform, the player must not be "remotely dragged" by the platform.
+- [x] When respawning inside an Anchor/Sticky zone, zone rules must take effect immediately with no brief inactive window.
 
-### 4.2 防卡关回归
-
-- [ ] 在节奏段触发区内等待（不反复进出），不会出现开关误连发。
-- [ ] B 开关在锁定时进入触发区，A 解锁后无需额外异常操作即可正常触发。
-- [ ] 弹板高速掠过时不会漏弹导致必经路径断档。
-
-## 5. L3 逐项脚本（高压挑战流）
-
-### 5.1 主路径
-
-- [ ] 完成 L2 全流程能力点。
-- [ ] 节奏段包含更高压窗口与附加移动平台，仍可完整通过。
-- [ ] 旋转走廊更密集（含额外危险臂），路线可读且可稳定通过。
-- [ ] 晶体达标后能在时限内到达终点。
-
-### 5.2 防卡关回归
-
-- [ ] 至少 2 次中途死亡后仍可完成，不出现状态错乱。
-- [ ] 重生后节奏链会正确重置，不出现“门状态与 HUD 不一致”。
-
-## 6. L4 逐项脚本（Boss 复合机制）
-
-### 6.1 主路径
-
-- [ ] 完成前段挑战后进入 Boss 区。
-- [ ] Boss 链要求先 A 后 B，B 在 A 前必须保持锁定。
-- [ ] A 成功后，B 可触发，Gate A/B 对应开启。
-- [ ] Boss Anchor 区内翻转禁用，离开区后恢复。
-- [ ] 完成 Boss 段后接终点门并结算。
-
-### 6.2 防卡关回归
-
-- [ ] Boss 区内死亡重生后，链路状态可重新执行，不会永久锁死。
-- [ ] Anchor 区边缘反复进出，不出现“离开后仍锁翻转”。
-
-## 7. 专项稳定性回归（每个大版本至少一次）
-
-- [ ] 开关触发可靠性: `OnTriggerEnter` 丢失时，`OnTriggerStay` 能兜底成功。
-- [ ] 防重复触发: 同一次进入区间不应重复激活开关/弹板。
-- [ ] 锁定开关后进入触发区，解锁后不需离开区域也可触发一次。
-- [ ] 链路重置后（如死亡重生），同一开关可再次正常触发。
-- [ ] 压板占用体清理: 箱子/玩家异常移除后，压板状态可自动恢复。
-- [ ] KillZone / Checkpoint / Crystal 在高速移动下不漏触发。
-- [ ] 多重 KillZone 重叠时，单次坠落只计一次死亡并只触发一次重生。
-- [ ] 坍塌平台在踩中时必定进入倒计时，不出现“站上去不坍塌”。 
-- [ ] 压板门初始化时序: 关卡加载后门状态应与压板状态一致，不应因组件创建顺序误开门。
-- [ ] 重力翻转姿态稳定: 翻转后角色视觉不应长时间“侧倒/趴倒”，应快速恢复直立。
-- [ ] 移动平台承载清理: 死亡重生或脱离平台后，不会被平台继续“远程拖拽”。
-- [ ] 在 Anchor/Sticky 区域内重生时，区域规则应立即生效，不应出现短暂失效窗口。
-
-## 8. 单局记录模板
-
-- [ ] 局信息: Level= , Difficulty= , Mode=
-- [ ] HUD 需求: Need= , FlipCD= , Checkpoints=
-- [ ] 通关结果: Pass/Fail
-- [ ] 失败点位置: 
-- [ ] 是否可重现: Always / Sometimes / Once
-- [ ] Console 报错关键字: 
-- [ ] 备注与截图编号: 
+## 8. Per-Run Record Template
+- [x] Run info: Level= , Difficulty= , Mode=
+- [x] HUD values: Need= , FlipCD= , Checkpoints=
+- [x] Outcome: Pass / Fail
+- [x] Failure location:
+- [x] Reproducibility: Always / Sometimes / Once
+- [x] Console error keywords:
+- [x] Notes and screenshot numbers:
