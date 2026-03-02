@@ -14,7 +14,7 @@ Your repo root should look like this:
 - `.gitignore` — Unity ignore rules (**commit**)
 - `README.md` — this file (**commit**)
 
-### Do **NOT** commit these (generated / local files)
+
 
 These must stay out of GitHub (and are excluded by `.gitignore`):
 
@@ -67,7 +67,6 @@ Controls are defined in:
 
 > If controls differ on your machine, treat `Assets/InputSystem_Actions.inputactions` as the source of truth.
 
-## Suggested Commit Style (for grading)
 
 To show proper version control usage, commit in small, meaningful steps:
 - One feature / fix / level tweak per commit
